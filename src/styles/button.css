@@ -1,0 +1,8 @@
+.btn{ border:1px solid var(--border); background:#f8fafc; color:#111827; padding:.6rem 1rem; border-radius:.6rem; cursor:pointer; transition:transform .08s ease, background .2s ease }
+.btn:hover{ background:#f1f5f9 }
+.btn:active{ transform: translateY(1px) scale(.995) }
+.btn.primary{ background: var(--brand); color:#ffffff; border-color: transparent }
+.btn.ghost{ background: transparent; color:#111827 }
+.btn.danger{ background: var(--danger); color:#ffffff; border-color: transparent }
+.btn[disabled]{ opacity:.6; cursor:not-allowed }
+@media (max-width:480px){ .btn.full{ width:100% } }
