@@ -1,0 +1,20 @@
+.pcard{background:var(--card); border:1px solid var(--border); border-radius:.7rem; overflow:hidden display:flex; flex-direction:column; height:100%; }
+.pcard-thumb img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block}
+.pcard-body{padding:.8rem; display:grid; gap:.4rem display:flex; flex-direction:column; gap:.4rem; flex:1; }
+.pcard-title{margin:0; font-size:1rem}
+.pcard-price{margin:0; font-weight:700}
+.pcard-desc{margin:0; color:var(--muted); font-size:.9rem}
+.pcard-actions{display:flex; gap:.5rem; align-items:center; flex-wrap:wrap}
+.soldout{ color: var(--danger); font-weight:600; margin:.25rem 0 0 }
+.qtyWrap{ display:inline-flex; align-items:center; gap:.4rem }
+.qtyInput{ width:64px; text-align:center; background:#ffffff; color:#111827; border:1px solid var(--border); border-radius:.35rem; padding:.4rem; font-size:16px }
+.stepBtn{ background:transparent; border:1px solid var(--border); color:#111827; width:32px; height:32px; border-radius:.4rem; cursor:pointer; font-size:16px }
+.stepBtn:disabled{ opacity:.6; cursor:not-allowed }
+.qtyInput::-webkit-outer-spin-button,.qtyInput::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0 }
+.qtyInput[type=number]{ -moz-appearance:textfield }
+@media (max-width:480px){ .pcard-actions .btn{ width:100% } }
+
+/* Uniform heights: clamp long text and push actions to bottom */
+.pcard-title{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height: 2.6em; }
+.pcard-desc{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height: 2.6em; }
+.pcard-actions{ margin-top:auto; }

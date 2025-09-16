@@ -1,0 +1,26 @@
+.mk-title{ margin:1.25rem 0 }
+.mk-controls{ display:grid; gap: .75rem; margin-bottom:1rem }
+.mk-row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap }
+.mk-select{ background:#ffffff; border:1px solid var(--border); color:#111827; border-radius:.5rem; padding:.6rem .8rem; min-width:200px }
+.mk-searchWrap{ position:relative; flex:1 1 320px }
+.mk-search{ width:100%; background:#ffffff; border:1px solid var(--border); color:#111827; border-radius:.5rem; padding:.6rem 2.2rem .6rem .8rem }
+.mk-clear{ position:absolute; right:.25rem; top:50%; transform:translateY(-50%); border:1px solid var(--border); background:#ffffff; color:#111827; width:28px; height:28px; border-radius:.35rem; cursor:pointer }
+.mk-suggestions{ position:absolute; left:0; right:0; top: calc(100% + 4px); background:#ffffff; border:1px solid var(--border); border-radius:.5rem; padding:.35rem; display:none; z-index:10 }
+.mk-suggestions[data-open]{ display:block }
+.mk-suggestions ul{ list-style:none; padding:0; margin:0; max-height:240px; overflow:auto }
+.mk-suggestions li + li{ margin-top:.25rem }
+.mk-suggestions button{ width:100%; text-align:left; background:transparent; color:#111827; padding:.4rem .5rem; border-radius:.35rem; cursor:pointer }
+.mk-suggestions button:hover{ background:#f3f4f6 }
+.mk-suggestions button.active{ background:#e5e7eb }
+.mk-msg{ color: var(--muted); padding:.4rem .5rem }
+.mk-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:1rem; overflow-x:hidden }
+.mk-pagination{ display:flex; gap:.35rem; justify-content:center; align-items:center; padding:1rem 0 }
+.mk-pageBtn{ background:#D6C0B3; color:#111827; border:1px solid var(--border); border-radius:.5rem; padding:.45rem .75rem }
+@media (max-width:520px){ .mk-grid{ grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) } .mk-search{ width:100%; background:#ffffff; border:1px solid var(--border); color:#111827; border-radius:.5rem; padding:.6rem 2.2rem .6rem .8rem } }
+@media (max-width:400px){ .mk-grid{ grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) } }
+
+.mk-pageBtn.active{ outline:2px solid var(--brand); outline-offset:2px }
+
+.mk-ellipsis{ padding:.45rem .4rem; color: var(--muted); }
+
+.mk-grid > .pcard{ height:100%; }
