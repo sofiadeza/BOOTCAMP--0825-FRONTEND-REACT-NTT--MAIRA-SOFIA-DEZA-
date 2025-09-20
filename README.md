@@ -1,52 +1,69 @@
-# My Market
+# React + TypeScript + Vite
 
-## 1) ¿Qué se ha implementado?
-- **Autenticación (DummyJSON)**: login en `/`, sesión guardada en `sessionStorage`.  
-  Rutas protegidas: **/market**, **/cart** y **404** (si no hay sesión, va al login).
-  Modal “Olvidé mi contraseña” y validación de email.
-- **Market (catálogo)**: productos y categorías desde DummyJSON, 10 ítems por página, con paginación, filtro por categoría,
-  búsqueda con sugerencias (≥3 caracteres),
-  **cards** de igual altura; cantidad editable con **±**, el stock baja al agregar productos.
-- **Cart (carrito)**: editar/eliminar cantidades, formulario de envío con validaciones,  
-  bloquea compra si el carrito está vacío; **vacía el carrito** al comprar.
-- **UI/Theme**: tema claro (fondo blanco); diseño responsive.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 2) Pasos para ejecutarlo localmente
-```bash
-# instalar dependencias
-npm install
-# ejecutar en modo desarrollo
-npm run dev
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## 3) Arquitectura de carpetas 
-```bash
-src/
-  App.tsx                # Rutas, RequireAuth, estado simple (auth, productos, carrito)
-  main.tsx               # Crear y montar la app de React en #root, Envolver la app con BrowserRouter para habilitar React Router y cargar los estilos globales.
-  types.ts               # Tipos TS: Product, CartItem, AuthData
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-  components/
-    Header.tsx           
-    Footer.tsx
-    ProductCard.tsx      # Card del producto
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-  pages/
-    Login.tsx            # Login + modal “Olvidé mi contraseña”
-    Market.tsx           # Catálogo, filtros por categoría, búsqueda, paginación 
-    Cart.tsx             # Carrito + formulario de envío; compra limpia el carrito
-    NotFound.tsx         # 404 (protegida)
-
-  hooks/
-    usePagination.ts     # Paginación en cliente (10 por página)
-
-  ui/
-    Button.tsx
-    Input.tsx
-
-  styles/
-    global.css, header.css, market.css, product-card.css,
-    cart.css, button.css, input.css, footer.css, modal.css
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```

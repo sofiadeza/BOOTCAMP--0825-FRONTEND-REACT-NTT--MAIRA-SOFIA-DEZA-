@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "module": "ES2022",
+    "target": "ES2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": false,
+    "verbatimModuleSyntax": false,
+    "jsx": "react-jsx",
+    "noUnusedLocals": false,
+    "types": [
+      "jest",
+      "react",
+      "react-dom"
+      // si usas jest-dom en el setup:
+      // "@testing-library/jest-dom"
+    ]
+  },
+  "include": ["src", "jest.setup.ts"]
+}
+

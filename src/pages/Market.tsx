@@ -4,6 +4,9 @@ import '../styles/market.css';
 import type { Product } from '../types';
 import { usePagination } from '../hooks/usePagination';
 
+
+type PageMarker = number | 'left' | 'right';
+
 type Props = { products: Product[]; categories: string[]; loading?: boolean; error?: string | null; onAdd: (p: Product, qty: number)=>void };
 
 const ALL = 'Todas las categorías';
@@ -144,7 +147,7 @@ export default function Market({ products, categories = [], loading, error, onAd
     let end = current + Math.floor(inner / 2);
     if (start < 2) { start = 2; end = start + inner - 1; }
     if (end > total - 1) { end = total - 1; start = end - inner + 1; }
-    const seq = [1];
+    const seq: PageMarker[] = [];
     if (start > 2) seq.push('left');
     for (let n = start; n <= end; n++) seq.push(n);
     if (end < total - 1) seq.push('right');

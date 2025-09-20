@@ -7,6 +7,7 @@ import Market from './pages/Market';
 import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
 import type { AuthData, CartItem, Product } from './types';
+import type { ReactNode } from 'react';
 
 async function fetchAllProducts(): Promise<Product[]>{
   const limit = 100;
@@ -40,7 +41,7 @@ async function fetchCategories(): Promise<string[]>{
   return Array.isArray(cats)? cats : [];
 }
 
-function RequireAuth({ children }: { children: JSX.Element }){
+function RequireAuth({ children }: { children: ReactNode }){
   const raw = sessionStorage.getItem('auth');
   const isAuthed = !!raw;
   const location = useLocation();
@@ -132,52 +133,59 @@ export default function App(){
         <Header userName={userName} cartCount={cart.length} onLogout={logout} />
       )}
       <main className="header-space">
+        {/* Loader accesible para tests y a11y */}
+        {loading && (
+          <div role="status" data-testid="loading" aria-live="polite">
+            Cargando…
+          </div>
+        )}
+
         <Routes>
-  <Route
-    path="/"
-    element={auth ? <Navigate to="/market" replace /> : (
-      <Login onLogin={(data) => {
-        setAuth(data);
-        sessionStorage.setItem('auth', JSON.stringify(data));
-      }} />
-    )}
-  />
-  <Route
-    path="/market"
-    element={
-      <RequireAuth>
-        <Market
-          products={products}
-          categories={categories}
-          loading={loading}
-          error={error}
-          onAdd={addToCart}
-        />
-      </RequireAuth>
-    }
-  />
-  <Route
-    path="/cart"
-    element={
-      <RequireAuth>
-        <Cart
-          items={cart}
-          onUpdateQty={updateQty}
-          onRemove={removeFromCart}
-          onCheckout={() => setCart([])}
-        />
-      </RequireAuth>
-    }
-  />
-  <Route
-    path="*"
-    element={
-      <RequireAuth>
-        <NotFound />
-      </RequireAuth>
-    }
-  />
-</Routes>
+          <Route
+            path="/"
+            element={auth ? <Navigate to="/market" replace /> : (
+              <Login onLogin={(data) => {
+                setAuth(data);
+                sessionStorage.setItem('auth', JSON.stringify(data));
+              }} />
+            )}
+          />
+          <Route
+            path="/market"
+            element={
+              <RequireAuth>
+                <Market
+                  products={products}
+                  categories={categories}
+                  loading={loading}
+                  error={error}
+                  onAdd={addToCart}
+                />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <RequireAuth>
+                <Cart
+                  items={cart}
+                  onUpdateQty={updateQty}
+                  onRemove={removeFromCart}
+                  onCheckout={() => setCart([])}
+                />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <RequireAuth>
+                <NotFound />
+              </RequireAuth>
+            }
+          />
+        </Routes>
       </main>
       <Footer />
     </>
