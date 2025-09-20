@@ -1,69 +1,46 @@
-# React + TypeScript + Vite
+# 🧪 Pruebas de My Market
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto implementa una **cobertura de tests superior al 60 %** (actualmente ~73 % de líneas) para garantizar la calidad de la aplicación **My Market**, una tienda en línea desarrollada con **React + TypeScript**.
 
-Currently, two official plugins are available:
+Las pruebas fueron realizadas con **Jest** y **@testing-library/react**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📂 Estructura de los tests
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Todos los archivos de pruebas se ubican en **`src/**`** siguiendo el patrón  
+`__tests__` cerca del archivo que prueban.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+La arquitectura de carpetas para los tests en My Market es simple y organizada para que cada prueba esté cerca del código que valida.
+Aquí la idea principal 👇
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├─ App.test.tsx               ← test de la app principal
+├─ components/
+│  └─ __tests__/              ← tests de cada componente UI
+│     ├─ Footer.test.tsx
+│     ├─ Header.test.tsx
+│     └─ ProductCard.test.tsx
+├─ hooks/
+│  └─ __tests__/              ← tests de hooks personalizados
+│     └─ usePagination.test.ts
+├─ pages/
+│  └─ __tests__/              ← tests de cada página (rutas)
+│     ├─ Cart.test.tsx
+│     ├─ Login.test.tsx
+│     └─ Market.test.tsx
+└─ ui/                        ← componentes básicos (botones, inputs)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ✅ Lo que ya está cubierto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+App.tsx → test de integración básico.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+components/ → Footer, Header, ProductCard probados.
+
+hooks/ → usePagination probado al 100%.
+
+pages/ → Cart, Login, Market y NotFound tienen tests (incluyendo escenarios extras como filtros, formulario, login olvidado, etc.).
+
+ui/ → Button e Input tienen tests de uso básico.
